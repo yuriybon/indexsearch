@@ -1,13 +1,10 @@
 package ua.odessa.bondary;
 
-/**
- * English alphabet, do you use it?
- */
 public class EnglishAlphabet extends SimpleAlphabet {
 
     private static final long serialVersionUID = 1L;
 
     public EnglishAlphabet() {
-        super('A', 'Z');
+        super('A', 'z');
     }
 }
