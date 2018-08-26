@@ -18,8 +18,9 @@ public class NGramSearcherTest {
         NGramSearcher searcher = new NGramSearcher( index, metric,2,true);
 
         for (Integer i: searcher.search("watsco")) {
-            System.out.println("result "+i);
+            System.out.println(dictionary[i]);
         }
+
 
 
     }
