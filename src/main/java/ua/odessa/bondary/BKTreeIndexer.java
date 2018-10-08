@@ -19,12 +19,14 @@ public class BKTreeIndexer implements Indexer {
         int rootWord = -1;
 
         for (int i = 0; i < dictionary.length && rootWord < 0; ++i)
-            if (dictionary[i].length() == averageLength) rootWord = i;
+            if (dictionary[i].length() == averageLength)
+                rootWord = i;
 
         Node rootNode = new Node(rootWord);
 
-        for (int i = 0; i < dictionary.length; ++i)
-            if (i != rootNode.getIndex()) rootNode.add(dictionary, metric, i);
+        for (int i = 0; i < dictionary.length; i++)
+            if (i != rootNode.getIndex())
+                rootNode.add(dictionary, metric, i);
 
         int[][] nodeMap = new int[dictionary.length][];
         populate(nodeMap, rootNode);
@@ -53,6 +55,8 @@ public class BKTreeIndexer implements Indexer {
     }
 
     private static class Node {
+        private final int index;
+        private final Map<Integer, Node> children;
 
         public Node(int index) {
             this.index = index;
@@ -68,16 +72,22 @@ public class BKTreeIndexer implements Indexer {
         }
 
         public void add(String[] dictionary, Metric metric, int childWord) {
-            int distance = metric.getDistance(dictionary[index], dictionary[childWord]);
+
+            if (dictionary[index] == null || dictionary[childWord] == null)
+                return;
+            String word1 = dictionary[index];
+            String word2 = dictionary[childWord];
+            System.out.println("dict[index]="+word1);
+            System.out.println("dictionary[childWord]="+word2);
+            int distance = metric.getDistance(word1, word2);
 
             Node child = children.get(distance);
-            if (child != null)
+            if (child != null) {
                 child.add(dictionary, metric, childWord);
-            else children.put(distance, new Node(childWord));
+            }
+            else
+                children.put(distance, new Node(childWord));
         }
-
-        private final int index;
-        private final Map<Integer, Node> children;
     }
 
     private final Metric metric;
