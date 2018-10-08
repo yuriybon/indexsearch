@@ -1,6 +1,8 @@
 package ua.odessa.bondary;
 
-    /**
+import java.util.Arrays;
+
+/**
      * Метрика Дамерау-Левенштейна.
      */
 public class DamerauLevensteinMetric extends Metric {
@@ -39,14 +41,15 @@ public class DamerauLevensteinMetric extends Metric {
             if (max < 0) max = secondLength;
             if (secondLength - firstLength > max) return max + 1;
 
-            if (firstLength > currentRow.length) {
+            if (firstLength >= currentRow.length) {
                 currentRow = new int[firstLength + 1];
                 previousRow = new int[firstLength + 1];
                 transpositionRow = new int[firstLength + 1];
             }
 
-            for (int i = 0; i <= firstLength; i++)
+            for (int i = 0; i < firstLength; i++) {
                 previousRow[i] = i;
+            }
 
             char lastSecondCh = 0;
             for (int i = 1; i <= secondLength; i++) {
