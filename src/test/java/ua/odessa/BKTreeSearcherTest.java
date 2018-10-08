@@ -14,11 +14,13 @@ public class BKTreeSearcherTest {
         DamerauLevensteinMetric metric = new DamerauLevensteinMetric(2);
         BKTreeIndexer indexer = new BKTreeIndexer(metric);
 
-        BKTreeSearcher searcher = new BKTreeSearcher((BKTreeIndex) indexer.createIndex(dictionary), metric, 2);
-//
-//        for (Integer i: searcher.search("watsco")) {
-//            System.out.println(dictionary[i]);
-//        }
+        BKTreeIndex index = (BKTreeIndex) indexer.createIndex(dictionary);
+
+        BKTreeSearcher searcher = new BKTreeSearcher(index, metric, 2);
+
+        for (Integer i: searcher.search("watsco")) {
+            System.out.println(dictionary[i]);
+        }
 
     }
 
